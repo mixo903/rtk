@@ -1,6 +1,6 @@
 --[[---------------------------------------------------------
 	(Made for Toribash 5.7x)
-	  RTK 1.1: Replaymaking Toolkit by miso903
+	  RTK 1.11: Replaymaking Toolkit by miso903
 
 	COMMANDS:
 		/skip			: Cache replay to get speed controls
@@ -129,7 +129,7 @@ local qKey = 113
 local function qeBind(key)
 	if key == nKey and get_keyboard_shift() > 0 then
 		quickEdit()
-	elseif key == qKey and get_keyboard_ctrl() > 0 or get_keyboard_alt() > 0 then
+	elseif key == qKey and (get_keyboard_ctrl() > 0 or get_keyboard_alt() > 0) then
 		quickEdit(true)
 	end
 end
