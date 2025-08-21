@@ -10,8 +10,8 @@
 
 	BINDS:
 		Shift + R		: /skip
-		N				: /ff <last number>
-		Shift + N		: Go back 1 turn (does not cache replay)
+		N				: /ff (last number)
+		Shift + N		: Go back a turn (your set tf)
 		Ctrl/Alt + Q	: /qe
 
 	"damn"
@@ -77,9 +77,9 @@ local function fastForward()
 end
 
 local function ffCommand(cmd)
-	if _sub(cmd, 1, 2) == "ff" then -- string.explode require(toriui.uielement), this works
+	if _sub(cmd, 1, 2) == "ff" then
 		local mf = get_game_rules().matchframes
-		local ff = tonumber(_sub(cmd, 4, 8))
+		local ff = tonumber(_sub(cmd, 4, 8)) -- string.explode require(toriui.uielement), this works
 		ffFrame = (ff and mf - ff) or ffFrame
 
 		fastForward()
