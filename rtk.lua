@@ -1,6 +1,6 @@
 --[[---------------------------------------------------------
 	(Made for Toribash 5.7x)
-	  RTK 1.11: Replaymaking Toolkit by miso903
+	  RTK 1.2: Replaymaking Toolkit by miso903
 
 	COMMANDS:
 		/skip			: Cache replay to get speed controls
@@ -23,6 +23,26 @@
 local _sub = string.sub
 local ffFrame = 0
 local winScreenFrames = 101
+local lastPlayer = "0"
+
+local function lastSelectedPlayer(ply)
+	lastPlayer = tostring(ply)
+end
+add_hook("player_select", "lastSelectedPlayer", lastSelectedPlayer)
+
+local function zoomPlayerDeferred() -- Zoom on last selected player
+	add_hook("post_draw3d", "zoomPlayerDeferred", function()
+		run_cmd("zp " .. lastPlayer, 0, true)
+		remove_hook("post_draw3d", "zoomPlayerDeferred")
+	end)
+end
+
+local function autoZoom()
+	if get_camera_mode() > 4 then -- Cam 6 and 7 returns 7
+		zoomPlayerDeferred()
+	end
+end
+add_hook("leave_game", "autoZoom", autoZoom)
 
 local function spamShiftP(frames) -- Shift + P at light speed
 	for i = 1, frames do
@@ -109,12 +129,12 @@ local function quickEdit(qe)
 	end
 
 	if qe then
-		skipReplay(true, qeFrame) -- Cache replay here
-		return
+		skipReplay(true, qeFrame) -- Cache replay
+	else                    -- shift + N
+		rewind_replay()
+		spamShiftP(qeFrame) -- Don't cache for quicker 1st rewind
 	end
-
-	rewind_replay()
-	spamShiftP(qeFrame) -- Don't cache replay for quicker 1st rewind
+	zoomPlayerDeferred()
 end
 
 local function qeCommand(cmd)
