@@ -1,6 +1,6 @@
 --[[---------------------------------------------------------
 	(Made for Toribash 5.7x)
-	  RTK 1.2: Replaymaking Toolkit by miso903
+	  RTK 1.21: Replaymaking Toolkit by miso903
 
 	COMMANDS:
 		/skip			: Cache replay to get speed controls
@@ -99,7 +99,7 @@ end
 local function ffCommand(cmd)
 	if _sub(cmd, 1, 2) == "ff" then
 		local mf = get_game_rules().matchframes
-		local ff = tonumber(_sub(cmd, 4, 8)) -- string.explode require(toriui.uielement), this works
+		local ff = tonumber(_sub(cmd, 4)) -- string.explode require(toriui.uielement), this works
 		ffFrame = (ff and mf - ff) or ffFrame
 
 		fastForward()
@@ -155,9 +155,9 @@ local function qeBind(key)
 end
 add_hook("key_up", "qeBind", qeBind)
 
-local function setFov(cmd)
+local function fovCommand(cmd)
 	if _sub(cmd, 1, 3) == "fov" then
-		local fov = tonumber(_sub(cmd, 5, 7)) or 50
+		local fov = tonumber(_sub(cmd, 5)) or 50
 		set_fov(fov)
 
 		if fov == 50 then
@@ -168,6 +168,6 @@ local function setFov(cmd)
 		return 1
 	end
 end
-add_hook("command", "setFov", setFov)
+add_hook("command", "fovCommand", fovCommand)
 
 echo("rtk.lua")
