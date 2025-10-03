@@ -20,7 +20,7 @@
 	  — jagger700
 -----------------------------------------------------------]]
 
-local _sub = string.sub
+local _sub, _byte = string.sub, string.byte
 local ffFrame = 0
 local winScreenFrames = 101
 local lastPlayer = "0"
@@ -76,7 +76,7 @@ local function skipCommand(cmd)
 end
 add_hook("command", "skipCommand", skipCommand)
 
-local rKey = 114
+local rKey = _byte("r")
 local function skipBind(key)
 	if key == rKey and get_keyboard_shift() > 0 then
 		if get_replay_cache() == 0 then
@@ -109,7 +109,7 @@ local function ffCommand(cmd)
 end
 add_hook("command", "ffCommand", ffCommand)
 
-local nKey = 110
+local nKey = _byte("n")
 local function ffBind(key)
 	if key == nKey and get_keyboard_shift() == 0 then
 		fastForward()
@@ -145,7 +145,7 @@ local function qeCommand(cmd)
 end
 add_hook("command", "qeCommand", qeCommand)
 
-local qKey = 113
+local qKey = _byte("q")
 local function qeBind(key)
 	if key == nKey and get_keyboard_shift() > 0 then
 		quickEdit()
