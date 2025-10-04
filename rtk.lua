@@ -1,6 +1,6 @@
 --[[---------------------------------------------------------
-	(Made for Toribash 5.7x)
-	  RTK 1.21: Replaymaking Toolkit by miso903
+	(Made for Toribash >= 5.76)
+	  RTK 1.3: Replaymaking Toolkit by miso903
 
 	COMMANDS:
 		/skip			: Cache replay to get speed controls
@@ -52,19 +52,12 @@ end
 
 local function skipReplay(ff, qe)
 	local mf = get_game_rules().matchframes + winScreenFrames
-	local remainingFrames = mf
-
-	if get_world_state().replay_mode == 0 then -- Must rewind if still editing
-		rewind_replay()
-	else
-		remainingFrames = (mf - get_world_state().match_frame)
-	end
+	local remainingFrames = mf - get_world_state().match_frame
 
 	spamShiftP(remainingFrames)
 
 	if ff then
-		local f = qe or ffFrame
-		rewind_replay_to_frame(f)
+		rewind_replay_to_frame(qe or ffFrame)
 	end
 end
 
